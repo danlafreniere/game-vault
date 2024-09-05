@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'twitch_api' => [
+        'client_id' => env('TWITCH_API_CLIENT_ID'),
+        'client_secret' => env('TWITCH_API_CLIENT_SECRET'),
+    ],
+
 ];

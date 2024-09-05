@@ -4,25 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game Vault</title>
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
   @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-900 h-screen text-white">
   <header class="border-b border-gray-800">
-    <nav class="container mx-auto flex items-center justify-between px-4 py-6">
-      <div class="flex items-center">
+    <nav class="container mx-auto flex flex-col lg:flex-row items-center justify-between px-4 py-6">
+      <div class="flex items-center flex-col lg:flex-row">
         <a href="/">
           <img src="/images/logo.svg" alt="Game Vault" class="h-8 flex-none">
         </a>
-        <ul class="flex ml-16 items-center gap-8">
+        <ul class="flex ml-0 lg:ml-16 mt-2 lg:mt-0 items-center gap-8">
           <li><a href="#" class="hover:text-gray-500">Games</a></li>
           <li><a href="#" class="hover:text-gray-500">Reviews</a></li>
           <li><a href="#" class="hover:text-gray-500">Coming Soon</a></li>
         </ul>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center mt-2 lg:mt-0">
         <div class="relative">
           <input type="text" class="bg-gray-800 text-sm rounded-full w-64 px-3 py-1 focus:outline-none focus:ring pl-8" placeholder="Search...">
           <div class="absolute top-0 flex items-center h-full ml-2">
@@ -43,7 +42,7 @@
   </main>
   <footer class="border-t border-gray-800">
     <div class="container mx-auto px-4 py-6">
-      Powered by <a href="#" class="underline hover:text-gray-500">IGDB API</a>
+      Powered by <a href="https://www.igdb.com/api" target="_blank" class="underline hover:text-gray-500">IGDB API</a>
     </div>
   </footer>
 </body>
