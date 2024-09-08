@@ -2,14 +2,14 @@
   @forelse ($popularGames as $game)
   <div class="game mt-8 flex flex-col justify-center items-center lg:block">
     <div class="relative inline-block min-w-[264px] lg:min-w-[168px] 2xl:min-w-[210px] min-h-[352px] lg:min-h-[224px] 2xl:min-h-[280px]">
-      <a href="#">
+      <a href="{{ route('games.show', $game['slug']) }}">
         <img class="hover:opacity-75 transition ease-in-out duration-150" src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="Game cover" />
       </a>
       <div class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-800 rounded-full">
         <div class="font-semibold text-xs flex justify-center items-center h-full">{{ isset($game['rating']) ? min(100, max(0, round($game['rating']))) . '%' : 'N/A' }}</div>
       </div>
     </div>
-    <a href="#" class="block text-base font-semibold leading-tight hover:text-gray-500 mt-8">{{ $game['name'] }}</a>
+    <a href="{{ route('games.show', $game['slug']) }}" class="block text-base font-semibold leading-tight hover:text-gray-500 mt-8">{{ $game['name'] }}</a>
     <div class="text-gray-500 mt-1">
       @foreach ($game['platforms'] as $platform)
       @if (array_key_exists('abbreviation', $platform))

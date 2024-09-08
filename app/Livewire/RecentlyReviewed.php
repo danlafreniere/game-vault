@@ -33,13 +33,13 @@ class RecentlyReviewed extends BaseGamesComponent
         'Client-ID' => config('services.twitch_api.client_id'),
         'Authorization' => 'Bearer ' . $accessToken,
       ])->withBody(
-        "fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, summary;
+        "fields name, cover.url, first_release_date, total_rating_count, rating_count, platforms.abbreviation, rating, summary;
                 where platforms = (6,130,167,169)
                 & (first_release_date >= {$before}
                 & first_release_date < {$current})
-                & total_rating_count > 10;
+                & rating_count > 10;
                 limit 3;
-                sort total_rating_count desc;",
+                sort rating_count desc;",
         'text/plain'
       )->post('https://api.igdb.com/v4/games')->json();
     });
