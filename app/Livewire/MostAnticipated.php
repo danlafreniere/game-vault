@@ -2,16 +2,12 @@
 
 namespace App\Livewire;
 
-use App\Traits\AuthTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Livewire\Component;
 
-class MostAnticipated extends Component
+class MostAnticipated extends BaseGamesComponent
 {
-
-  use AuthTrait;
 
   /**
    * Most anticipated games data.
@@ -25,7 +21,7 @@ class MostAnticipated extends Component
    */
   public function fetch()
   {
-    $accessToken = $this->getAccessToken();
+    $accessToken = $this->accessToken;
     if (!$accessToken) {
       return;
     }

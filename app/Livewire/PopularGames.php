@@ -2,16 +2,12 @@
 
 namespace App\Livewire;
 
-use App\Traits\AuthTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Livewire\Component;
 
-class PopularGames extends Component
+class PopularGames extends BaseGamesComponent
 {
-
-  use AuthTrait;
 
   /**
    * Popular games data.
@@ -25,7 +21,7 @@ class PopularGames extends Component
    */
   public function fetch()
   {
-    $accessToken = $this->getAccessToken();
+    $accessToken = $this->accessToken;
     if (!$accessToken) {
       return;
     }
