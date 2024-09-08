@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
   @vite('resources/css/app.css')
+  @livewireStyles
 </head>
 <body class="bg-gray-900 h-screen text-white">
   <header class="border-b border-gray-800">
@@ -44,6 +45,7 @@
     <div class="container mx-auto px-4 py-6">
       Powered by <a href="https://www.igdb.com/api" target="_blank" class="underline hover:text-gray-500">IGDB API</a>
     </div>
+    @livewireScripts
   </footer>
 </body>
 </html>
