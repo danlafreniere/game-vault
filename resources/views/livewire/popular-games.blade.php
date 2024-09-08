@@ -1,7 +1,7 @@
 <div wire:init="fetch" class="popular-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12 border-b border-gray-800 pb-16">
   @forelse ($popularGames as $game)
   <div class="game mt-8 flex flex-col justify-center items-center lg:block">
-    <div class="relative inline-block">
+    <div class="relative inline-block min-w-[264px] lg:min-w-[168px] 2xl:min-w-[210px] min-h-[352px] lg:min-h-[224px] 2xl:min-h-[280px]">
       <a href="#">
         <img class="hover:opacity-75 transition ease-in-out duration-150" src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="Game cover" />
       </a>
@@ -19,8 +19,7 @@
     </div>
   </div>
   @empty
-  @foreach (range(1,20) as $game)
-
+  @foreach (range(1,18) as $game)
   <div class="game mt-8 flex flex-col justify-center animate-pulse items-center lg:block">
     <div class="relative inline-block">
       <div class="flex items-center justify-center w-[264px] lg:w-[168px] 2xl:w-[210px] h-[352px] lg:h-[224px] 2xl:h-[280px] bg-gray-300 rounded dark:bg-gray-700">
@@ -29,8 +28,8 @@
         </svg>
       </div>
     </div>
-    <div class="block text-base font-semibold leading-tight hover:text-gray-500 mt-8">Title</div>
-    <div class="text-gray-500 mt-1">PS5, PC</div>
+    <div class="block mt-8 h-4 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-4"></div>
+    <div class="mt-1 h-4 bg-gray-200 rounded-full dark:bg-gray-700 w-40"></div>
   </div>
   @endforeach
   @endforelse

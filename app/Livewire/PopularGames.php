@@ -21,8 +21,9 @@ class PopularGames extends BaseGamesComponent
    */
   public function fetch()
   {
-    $accessToken = $this->accessToken;
-    if (!$accessToken) {
+    try {
+      $accessToken = $this->accessTokenService->getAccessToken();
+    } catch (\Exception $e) {
       return;
     }
     $before = Carbon::now()->subMonths(2)->timestamp;
@@ -36,7 +37,7 @@ class PopularGames extends BaseGamesComponent
                 where platforms = (6,130,167,169)
                 & (first_release_date >= {$before}
                 & first_release_date < {$after})
-                & total_rating_count > 10;
+                & total_rating_count > 5;
                 sort total_rating_count desc;
                 limit 20;",
         'text/plain'

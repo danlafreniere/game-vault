@@ -18,9 +18,9 @@ class BaseGamesComponent extends Component
   /**
    * Access token.
    *
-   * @var string
+   * @var AccessTokenService
    */
-  protected $accessToken;
+  protected $accessTokenService;
 
   /**
    * Mount the popular games component.
@@ -30,6 +30,6 @@ class BaseGamesComponent extends Component
    */
   public function boot(AccessTokenService $accessTokenService)
   {
-    $this->accessToken = $accessTokenService->getAccessToken();
+    $this->accessTokenService = $accessTokenService;
   }
 }

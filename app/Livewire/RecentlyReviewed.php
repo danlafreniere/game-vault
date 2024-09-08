@@ -21,8 +21,9 @@ class RecentlyReviewed extends BaseGamesComponent
    */
   public function fetch()
   {
-    $accessToken = $this->accessToken;
-    if (!$accessToken) {
+    try {
+      $accessToken = $this->accessTokenService->getAccessToken();
+    } catch (\Exception $e) {
       return;
     }
     $before = Carbon::now()->subMonths(2)->timestamp;

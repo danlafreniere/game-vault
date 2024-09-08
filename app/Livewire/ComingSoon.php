@@ -21,8 +21,9 @@ class ComingSoon extends BaseGamesComponent
    */
   public function fetch()
   {
-    $accessToken = $this->accessToken;
-    if (!$accessToken) {
+    try {
+      $accessToken = $this->accessTokenService->getAccessToken();
+    } catch (\Exception $e) {
       return;
     }
     $current = Carbon::now()->timestamp;
