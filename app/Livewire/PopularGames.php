@@ -28,7 +28,7 @@ class PopularGames extends BaseGamesComponent
     }
     $before = Carbon::now()->subMonths(2)->timestamp;
     $after = Carbon::now()->addMonths(2)->timestamp;
-    $this->popularGames = Cache::remember('popularGames', 3600, function () use ($accessToken, $before, $after) {
+    $popularGamesUnformatted = Cache::remember('popularGames', 3600, function () use ($accessToken, $before, $after) {
       return Http::withHeaders([
         'Client-ID' => config('services.twitch_api.client_id'),
         'Authorization' => 'Bearer ' . $accessToken,
@@ -42,6 +42,27 @@ class PopularGames extends BaseGamesComponent
                 limit 20;",
         'text/plain'
       )->post('https://api.igdb.com/v4/games')->json();
+    });
+    $this->popularGames = $this->formatDataForView($popularGamesUnformatted);
+  }
+
+  /**
+   * Format data for view.
+   *
+   * @param array $data
+   *  Data to format.
+   *
+   * @return \Illuminate\Support\Collection
+   *  Formatted data.
+   */
+  protected function formatDataForView(array $data)
+  {
+    return collect($data)->map(function ($game) {
+      return collect($game)->merge([
+        'cover_image_url' => isset($game['cover']) ? str_replace('thumb', 'cover_big', $game['cover']['url']) : null,
+        'rating' => isset($game['rating']) ? min(100, max(0, round($game['rating']))) . '%' : 'N/A',
+        'platforms' => collect($game['platforms'])->pluck('abbreviation')->implode(', '),
+      ]);
     });
   }
 
