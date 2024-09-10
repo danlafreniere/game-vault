@@ -27,19 +27,37 @@ class ComingSoon extends BaseGamesComponent
       return;
     }
     $current = Carbon::now()->timestamp;
-    $this->comingSoon = Cache::remember('comingSoon', 3600, function () use ($accessToken, $current) {
+    $comingSoonUnformatted = Cache::remember('comingSoon', 3600, function () use ($accessToken, $current) {
       return Http::withHeaders([
         'Client-ID' => config('services.twitch_api.client_id'),
         'Authorization' => 'Bearer ' . $accessToken,
       ])->withBody(
-        "fields name, cover.url, first_release_date, total_rating_count;
+        "fields name, cover.url, first_release_date, total_rating_count, slug;
                 where platforms = (6,130,167,169)
-                & first_release_date >= {$current}
-                & total_rating_count > 1;
-                limit 4;
-                sort total_rating_count desc;",
+                & first_release_date >= {$current};
+                limit 3;",
         'text/plain'
       )->post('https://api.igdb.com/v4/games')->json();
+    });
+    $this->comingSoon = $this->formatDataForView($comingSoonUnformatted);
+  }
+
+  /**
+   * Format data for view.
+   *
+   * @param array $data
+   *  Data to format.
+   *
+   * @return \Illuminate\Support\Collection
+   *  Formatted data.
+   */
+  protected function formatDataForView(array $data)
+  {
+    return collect($data)->map(function ($game) {
+      return collect($game)->merge([
+        'cover_image_url' => isset($game['cover']) ? str_replace('thumb', 'cover_small', $game['cover']['url']) : null,
+        'release' => Carbon::parse($game['first_release_date'])->format('M d, Y'),
+      ]);
     });
   }
 

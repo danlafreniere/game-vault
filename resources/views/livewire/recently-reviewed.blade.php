@@ -3,24 +3,20 @@
   <div class="bg-gray-800 rounded-lg shadow-md flex px-6 py-6">
     <div class="inline-block flex-none">
       <div class="image-container relative min-h-[256px] min-w-[192px]">
-        <a href="#">
-          <img class="w-48 hover:opacity-75 transition ease-in-out duration-150" src="{{ Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) }}" alt="Game cover" />
+        <a href="{{ route('games.show', $game['slug']) }}">
+          <img class="w-48 hover:opacity-75 transition ease-in-out duration-150" src="{{ $game['cover_image_url'] }}" alt="Game cover" />
         </a>
         <div class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-900 rounded-full">
           <div class="font-semibold text-xs flex justify-center items-center h-full">
-            {{ isset($game['rating']) ? min(100, max(0, round($game['rating']))) . '%' : 'N/A' }}
+            {{ $game['rating'] }}
           </div>
         </div>
       </div>
     </div>
     <div class="ml-12">
-      <a href="#" class="block text-lg font-semibold leading-tight hover:text-gray-500 mt-4">{{ $game['name'] }}</a>
+      <a href="{{ route('games.show', $game['slug']) }}" class="block text-lg font-semibold leading-tight hover:text-gray-500 mt-4">{{ $game['name'] }}</a>
       <div class="text-gray-400 mt-1">
-        @foreach ($game['platforms'] as $platform)
-        @if (array_key_exists('abbreviation', $platform))
-        {{ $platform['abbreviation'] }},
-        @endif
-        @endforeach
+        {{ $game['platforms'] }}
       </div>
       <p class="mt-6 text-gray-400 block">{{ $game['summary'] }}</p>
     </div>

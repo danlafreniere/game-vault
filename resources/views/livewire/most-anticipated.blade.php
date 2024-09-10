@@ -1,12 +1,12 @@
 <div wire:init="fetch" class="gap-y-12 mt-8 flex flex-col">
   @forelse($mostAnticipated as $game)
   <div class="flex">
-    <a href="#">
-      <img class="w-16 hover:opacity-75 transition ease-in-out duration-150" src="{{ Str::replaceFirst('thumb', 'cover_small', $game['cover']['url']) }}" alt="Game cover" />
+    <a href="{{ route('games.show', $game['slug']) }}">
+      <img class="w-16 hover:opacity-75 transition ease-in-out duration-150" src="{{ $game['cover_image_url'] }}" alt="Game cover" />
     </a>
     <div class="hover:text-gray-300 ml-4">
-      <a href="#">{{ $game['name'] }}</a>
-      <p class="text-gray-400 text-sm mt-1">{{ Carbon\Carbon::parse($game['first_release_date'])->format('M d, Y') }}</p>
+      <a href="{{ route('games.show', $game['slug']) }}">{{ $game['name'] }}</a>
+      <p class="text-gray-400 text-sm mt-1">{{ $game['release'] }}</p>
     </div>
   </div>
   @empty
