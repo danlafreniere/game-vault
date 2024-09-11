@@ -45,25 +45,6 @@ class MostAnticipated extends BaseGamesComponent
     $this->mostAnticipated = $this->formatDataForView($mostAnticipatedUnformatted);
   }
 
-  /**
-   * Format data for view.
-   *
-   * @param array $data
-   *  Data to format.
-   *
-   * @return \Illuminate\Support\Collection
-   *  Formatted data.
-   */
-  protected function formatDataForView(array $data)
-  {
-    return collect($data)->map(function ($game) {
-      return collect($game)->merge([
-        'cover_image_url' => isset($game['cover']) ? str_replace('thumb', 'cover_small', $game['cover']['url']) : null,
-        'release' => Carbon::parse($game['first_release_date'])->format('M d, Y'),
-      ]);
-    });
-  }
-
   public function render()
   {
     return view('livewire.most-anticipated');
