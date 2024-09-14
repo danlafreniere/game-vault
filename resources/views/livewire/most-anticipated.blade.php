@@ -1,14 +1,6 @@
 <div wire:init="fetch" class="gap-y-12 mt-8 flex flex-col">
   @forelse($mostAnticipated as $game)
-  <div class="flex">
-    <a href="{{ route('games.show', $game['slug']) }}">
-      <img class="w-16 hover:opacity-75 transition ease-in-out duration-150" src="{{ $game['cover_image_url'] }}" alt="Game cover" />
-    </a>
-    <div class="hover:text-gray-300 ml-4">
-      <a href="{{ route('games.show', $game['slug']) }}">{{ $game['name'] }}</a>
-      <p class="text-gray-400 text-sm mt-1">{{ $game['release'] }}</p>
-    </div>
-  </div>
+  <x-game-card-small :game="$game" />
   @empty
   @foreach (range(1,2) as $game)
   <div class="flex animate-pulse">

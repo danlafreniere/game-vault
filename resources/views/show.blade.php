@@ -110,6 +110,7 @@
     </div>
   </div>
   <div class="images-container border-b border-gray-800 pb-12 mt-8">
+    @if (!empty($game['screenshots']))
     <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Screenshots</h2>
     <div class="images grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-8">
       @foreach ($game['screenshots'] as $screenshot)
@@ -120,6 +121,7 @@
       </div>
       @endforeach
     </div>
+    @endif
   </div>
   @if (!empty($game['similar_games']))
   <div class="similar-games-container pb-12 mt-8 flex flex-col justify-center items-center lg:block">
@@ -127,20 +129,7 @@
     <div class="similar-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12 pb-4">
       @foreach ($game['similar_games'] as $similar)
       @if (isset($similar['rating_count']) && $similar['rating_count'] > 5)
-      <div class="game mt-8">
-        <div class="relative inline-block w-full">
-          <a href="{{ route('games.show', $similar['slug']) }}">
-            <img class="hover:opacity-75 transition ease-in-out duration-150" src="{{ $similar['cover_image_url'] }}" alt="Game cover" />
-          </a>
-          <div class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-800 rounded-full">
-            <div class="font-semibold text-xs flex justify-center items-center h-full">{{ $similar['rating'] }}</div>
-          </div>
-        </div>
-        <a href="{{ route('games.show', $similar['slug']) }}" class="block text-base font-semibold leading-tight hover:text-gray-500 mt-8">{{ $similar['name'] }}</a>
-        <div class="text-gray-500 mt-1">
-          {{ $similar['platforms'] }}
-        </div>
-      </div>
+      <x-game-card :game="$similar" />
       @endif
       @endforeach
     </div>
