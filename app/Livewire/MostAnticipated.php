@@ -38,11 +38,17 @@ class MostAnticipated extends BaseGamesComponent
                 & (first_release_date >= {$current}
                 & first_release_date < {$after})'
                 & total_rating_count > 1;
+                sort total_rating_count desc;
                 limit 3;",
         'text/plain'
       )->post('https://api.igdb.com/v4/games')->json();
     });
-    $this->mostAnticipated = $this->formatDataForView($mostAnticipatedUnformatted);
+    if (empty($mostAnticipatedUnformatted)) {
+        $this->mostAnticipated = 'nodice';
+    }
+    else {
+        $this->mostAnticipated = $this->formatDataForView($mostAnticipatedUnformatted);
+    }
   }
 
   public function render()
