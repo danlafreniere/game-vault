@@ -91,8 +91,8 @@ class GamesController extends Controller
         'platforms' => isset($game['platforms']) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : NULL,
         'genres' => isset($game['genres']) ? collect($game['genres'])->pluck('name')->implode(', ') : NULL,
         'involved_companies' => isset($game['involved_companies']) ? collect($game['involved_companies'])->pluck('company.name')->implode(', ') : NULL,
-        'member_rating' => isset($game['rating']) ? min(100, max(0, round($game['rating']))) . '%' : 'N/A',
-        'critic_rating' => isset($game['aggregated_rating']) ? min(100, max(0, round($game['aggregated_rating']))) . '%' : 'N/A',
+        'member_rating' => isset($game['rating']) ? min(100, max(0, round($game['rating']))) : 'N/A',
+        'critic_rating' => isset($game['aggregated_rating']) ? min(100, max(0, round($game['aggregated_rating']))) : 'N/A',
         'trailer' => isset($game['videos']) ? 'https://youtube.com/watch?v=' . $game['videos'][0]['video_id'] : NULL,
         'slug' => isset($game['slug']) ? $game['slug'] : NULL,
         'screenshots' => isset($game['screenshots']) ? collect($game['screenshots'])->map(function ($screenshot) {
@@ -104,7 +104,7 @@ class GamesController extends Controller
         'similar_games' => isset($game['similar_games']) ? collect($game['similar_games'])->map(function ($similarGame) {
           return [
             'cover_image_url' => isset($similarGame['cover']) ? str_replace('thumb', 'cover_big', $similarGame['cover']['url']) : NULL,
-            'rating' => isset($similarGame['rating']) ? min(100, max(0, round($similarGame['rating']))) . '%' : 'N/A',
+            'rating' => isset($similarGame['rating']) ? min(100, max(0, round($similarGame['rating']))) : 'N/A',
             'slug' => isset($similarGame['slug']) ? $similarGame['slug'] : NULL,
             'rating_count' => isset($similarGame['rating_count']) ? $similarGame['rating_count'] : NULL,
             'name' => isset($similarGame['name']) ? $similarGame['name'] : NULL,

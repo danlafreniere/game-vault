@@ -29,14 +29,38 @@
       </div>
       <div class="flex flex-wrap items-center mt-8 gap-x-12 gap-y-4">
         <div class="flex items-center">
-          <div class="w-16 h-16 bg-gray-800 rounded-full">
-            <div class="font-semibold text-xs flex justify-center items-center h-full">{{ $game['member_rating'] }}</div>
+          <div id="memberRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-xs">
+            <div class="font-semibold flex justify-center items-center h-full">
+              @if ($game['member_rating'] != 'N/A')
+              @push('scripts')
+              @include('_rating', [
+              'selector' => 'memberRating',
+              'rating' => $game['member_rating'],
+              'event' => null,
+              ])
+              @endpush
+              @else
+              {{ $game['member_rating'] }}
+              @endif
+            </div>
           </div>
           <div class="ml-4 text-xs">Member<br />Score</div>
         </div>
         <div class="flex items-center">
-          <div class="w-16 h-16 bg-gray-800 rounded-full">
-            <div class="font-semibold text-xs flex justify-center items-center h-full">{{ $game['critic_rating'] }}</div>
+          <div id="criticRating" class="w-16 h-16 bg-gray-800 rounded-full relative text-xs">
+            <div class="font-semibold text-xs flex justify-center items-center h-full">
+              @if ($game['critic_rating'] != 'N/A')
+              @push('scripts')
+              @include('_rating', [
+              'selector' => 'criticRating',
+              'rating' => $game['critic_rating'],
+              'event' => null,
+              ])
+              @endpush
+              @else
+              {{ $game['critic_rating'] }}
+              @endif
+            </div>
           </div>
           <div class="ml-4 text-xs">Critic<br />Score</div>
         </div>
