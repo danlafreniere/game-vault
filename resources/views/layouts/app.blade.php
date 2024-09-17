@@ -37,6 +37,7 @@
           </a>
         </div>
       </div>
+    </nav>
   </header>
   <main class="py-8">
     @yield('content')
@@ -46,6 +47,8 @@
       Powered by <a href="https://www.igdb.com/api" target="_blank" class="underline hover:text-gray-500">IGDB API</a>
     </div>
     @livewireScripts
+      @vite('resources/js/app.js')
+      @stack('scripts')
   </footer>
 </body>
 </html>
