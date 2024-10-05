@@ -50,4 +50,19 @@ class PopularGames extends BaseGamesComponent
   {
     return view('livewire.popular-games');
   }
+
+  // public function rendered()
+  // {
+  //     collect($this->popularGames)->filter(function ($game) {
+  //         return $game['rating'];
+  //     })->each(function ($game) {
+  //         $this->dispatch('gameWithRatingAdded', slug: $game['slug'], rating: $game['rating']);
+  //     });
+  // }
+
+  public function initializeGameRatingAnimation(string $id)
+  {
+    $game = collect($this->popularGames)->firstWhere('slug', $id);
+    $this->dispatch('gameRatingAnimation', slug: $game['slug'], rating: $game['rating']);
+  }
 }
