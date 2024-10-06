@@ -46,6 +46,16 @@ class RecentlyReviewed extends BaseGamesComponent
     $this->recentlyReviewed = $this->formatDataForView($recentlyReviewedUnformatted);
   }
 
+  public function initializeRecentGameRatingAnimation(string $id)
+  {
+    // dump($id, collect($this->recentlyReviewed));
+    $game = collect($this->recentlyReviewed)->firstWhere('slug', $id);
+    if (!$game) {
+      return;
+    }
+    $this->dispatch('recentGameRatingAnimation', slug: $game['slug'], rating: $game['rating']);
+  }
+
   public function render()
   {
     return view('livewire.recently-reviewed');

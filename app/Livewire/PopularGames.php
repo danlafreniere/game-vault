@@ -63,6 +63,9 @@ class PopularGames extends BaseGamesComponent
   public function initializeGameRatingAnimation(string $id)
   {
     $game = collect($this->popularGames)->firstWhere('slug', $id);
+    if (!$game) {
+      return;
+    }
     $this->dispatch('gameRatingAnimation', slug: $game['slug'], rating: $game['rating']);
   }
 }

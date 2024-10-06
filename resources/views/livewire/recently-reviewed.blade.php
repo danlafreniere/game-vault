@@ -6,9 +6,11 @@
         <a href="{{ route('games.show', $game['slug']) }}">
           <img class="w-48 hover:opacity-75 transition ease-in-out duration-150" src="{{ $game['cover_image_url'] }}" alt="Game cover" />
         </a>
-        <div class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-900 rounded-full">
+        <div wire:key="recent--{{ $game['slug'] }}" id="recent--{{ $game['slug'] }}" class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-900 rounded-full" wire:ignore>
           <div class="font-semibold text-xs flex justify-center items-center h-full">
+            @if ($game['rating'] === 'N/A')
             {{ $game['rating'] }}
+            @endif
           </div>
         </div>
       </div>
@@ -45,3 +47,56 @@
   @endforeach
   @endforelse
 </div>
+
+@push('scripts')
+<script type="module">
+  Livewire.on('recentGameRatingAnimation', ($params) => {
+    let progressBarContainer = document.getElementById('recent--' + $params.slug);
+    let rating = event.detail.rating;
+    if (rating === 'N/A') {
+      return;
+    }
+    let bar = new ProgressBar.Circle(progressBarContainer, {
+      color: 'white',
+      strokeWidth: 6,
+      trailWidth: 3,
+      trailColor: '#4A5568',
+      easing: 'easeInOut',
+      duration: 1800,
+      text: {
+        autoStyleContainer: false,
+      },
+      svgStyle: {position: 'absolute', top: '0'},
+      from: { color: '#48BB78', width: 6 },
+      to: { color: '#48BB78', width: 6 },
+      step: function(state, circle) {
+        circle.path.setAttribute('stroke', state.color);
+        circle.path.setAttribute('stroke-width', state.width);
+        let value = Math.round(circle.value() * 100);
+        if (value === 0) {
+          circle.setText('0%');
+        } else {
+          circle.setText(value+'%');
+        }
+      }
+    });
+    bar.animate(rating / 100);
+  });
+  document.addEventListener('livewire:initialized', () => {
+    Livewire.hook('morph.added', (element) => {
+      const checkChildNodesForId = (node) => {
+        if (node.id) {
+          if (node.id.includes('recent')) {
+            let cleanId = node.id.replace('recent--', '');
+            @this.initializeRecentGameRatingAnimation(cleanId);
+          }
+        }
+        node.childNodes.forEach(child => {
+          checkChildNodesForId(child);
+        });
+      };
+      checkChildNodesForId(element.el);
+    });
+  });
+</script>
+@endpush
