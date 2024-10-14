@@ -1,6 +1,6 @@
 <div wire:init="fetch" class="gap-y-12 mt-8 flex flex-col">
   @forelse ($recentlyReviewed as $game)
-  <div class="bg-gray-800 rounded-lg shadow-md flex px-6 py-6">
+  <div class="bg-gray-800 rounded-lg shadow-md flex px-6 py-6 flex-wrap md:flex-nowrap">
     <div class="inline-block flex-none">
       <div class="image-container relative min-h-[256px] min-w-[192px]">
         <a href="{{ route('games.show', $game['slug']) }}">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="ml-12">
+    <div class="md:ml-12 mt-4 md:mt-0">
       <a href="{{ route('games.show', $game['slug']) }}" class="block text-lg font-semibold leading-tight hover:text-gray-500 mt-4">{{ $game['name'] }}</a>
       <div class="text-gray-400 mt-1">
         {{ $game['platforms'] }}
