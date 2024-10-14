@@ -9,4 +9,8 @@ export default {
         extend: {},
     },
     plugins: [],
+    purge: {
+        enabled: true,
+        content: ["./app/**/*.php", "./resources/**/*.php"],
+    },
 };
