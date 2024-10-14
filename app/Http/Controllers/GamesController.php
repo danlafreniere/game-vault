@@ -93,7 +93,7 @@ class GamesController extends Controller
         'involved_companies' => isset($game['involved_companies']) ? collect($game['involved_companies'])->pluck('company.name')->implode(', ') : NULL,
         'member_rating' => isset($game['rating']) ? min(100, max(0, round($game['rating']))) : 'N/A',
         'critic_rating' => isset($game['aggregated_rating']) ? min(100, max(0, round($game['aggregated_rating']))) : 'N/A',
-        'trailer' => isset($game['videos']) ? 'https://youtube.com/watch?v=' . $game['videos'][0]['video_id'] : NULL,
+        'trailer' => isset($game['videos']) ? 'https://youtube.com/embed/' . $game['videos'][0]['video_id'] : NULL,
         'slug' => isset($game['slug']) ? $game['slug'] : NULL,
         'screenshots' => isset($game['screenshots']) ? collect($game['screenshots'])->map(function ($screenshot) {
           return [

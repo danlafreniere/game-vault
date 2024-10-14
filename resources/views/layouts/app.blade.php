@@ -8,6 +8,7 @@
   <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
   @vite('resources/css/app.css')
   @livewireStyles
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="bg-gray-900 h-screen text-white">
   <header class="border-b border-gray-800">
