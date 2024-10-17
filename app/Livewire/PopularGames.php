@@ -33,11 +33,12 @@ class PopularGames extends BaseGamesComponent
         'Client-ID' => config('services.twitch_api.client_id'),
         'Authorization' => 'Bearer ' . $accessToken,
       ])->withBody(
-        "fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, rating_count, slug;
+        "fields name, cover.url, first_release_date, total_rating_count, aggregated_rating, aggregated_rating_count, platforms.abbreviation, rating, rating_count, slug;
                 where platforms = (6,130,167,169)
                 & (first_release_date >= {$before}
                 & first_release_date < {$after})
-                & rating_count > 5;
+                & rating_count > 3
+                & aggregated_rating_count > 1;
                 sort first_release_date desc;
                 limit 24;",
         'text/plain'
@@ -66,6 +67,6 @@ class PopularGames extends BaseGamesComponent
     if (!$game) {
       return;
     }
-    $this->dispatch('gameRatingAnimation', slug: $game['slug'], rating: $game['rating']);
+    $this->dispatch('gameRatingAnimation', slug: $game['slug'], rating: $game['critic_rating']);
   }
 }

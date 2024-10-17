@@ -6,10 +6,10 @@
         <a href="{{ route('games.show', $game['slug']) }}">
           <img class="w-48 hover:opacity-75 transition ease-in-out duration-150" src="{{ $game['cover_image_url'] }}" alt="Game cover" />
         </a>
-        <div wire:key="recent--{{ $game['slug'] }}" id="recent--{{ $game['slug'] }}" class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-900 rounded-full" wire:ignore>
-          <div class="font-semibold text-xs flex justify-center items-center h-full">
-            @if ($game['rating'] === 'N/A')
-            {{ $game['rating'] }}
+        <div wire:key="recent--{{ $game['slug'] }}" id="recent--{{ $game['slug'] }}" class="text-xs absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-900 rounded-full" wire:ignore>
+          <div class="font-semibold flex justify-center items-center h-full">
+            @if ($game['critic_rating'] === 'N/A')
+            {{ $game['critic_rating'] }}
             @endif
           </div>
         </div>

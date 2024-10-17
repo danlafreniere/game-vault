@@ -33,13 +33,13 @@ class RecentlyReviewed extends BaseGamesComponent
         'Client-ID' => config('services.twitch_api.client_id'),
         'Authorization' => 'Bearer ' . $accessToken,
       ])->withBody(
-        "fields name, cover.url, first_release_date, total_rating_count, rating_count, platforms.abbreviation, rating, summary, slug;
+        "fields name, cover.url, first_release_date, aggregated_rating, aggregated_rating_count, total_rating_count, rating_count, platforms.abbreviation, rating, summary, slug;
                 where platforms = (6,130,167,169)
                 & (first_release_date >= {$before}
                 & first_release_date < {$current})
-                & rating_count > 10;
+                & aggregated_rating_count > 3;
                 limit 3;
-                sort rating_count desc;",
+                sort first_release_date desc;",
         'text/plain'
       )->post('https://api.igdb.com/v4/games')->json();
     });
@@ -53,7 +53,7 @@ class RecentlyReviewed extends BaseGamesComponent
     if (!$game) {
       return;
     }
-    $this->dispatch('recentGameRatingAnimation', slug: $game['slug'], rating: $game['rating']);
+    $this->dispatch('recentGameRatingAnimation', slug: $game['slug'], rating: $game['critic_rating']);
   }
 
   public function render()

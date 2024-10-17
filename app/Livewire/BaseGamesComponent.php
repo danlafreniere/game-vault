@@ -50,6 +50,7 @@ class BaseGamesComponent extends Component
         'cover_image_url' => isset($game['cover']) ? str_replace('thumb', '720p', $game['cover']['url']) : '/images/image-not-found.svg',
         'release' => isset($game['first_release_date']) ? Carbon::parse($game['first_release_date'])->format('M d, Y') : NULL,
         'rating' => isset($game['rating']) ? min(100, max(0, round($game['rating']))) : 'N/A',
+        'critic_rating' => isset($game['aggregated_rating']) ? min(100, max(0, round($game['aggregated_rating']))) : 'N/A',
         'platforms' => isset($game['platforms']) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : NULL,
       ]);
     });

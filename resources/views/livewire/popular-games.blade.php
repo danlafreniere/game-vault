@@ -7,8 +7,8 @@
       </a>
       <div wire:key="{{ $game['slug'] }}" id="{{ $game['slug'] }}" class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-800 rounded-full text-xs" wire:ignore>
         <div class="font-semibold text-xs flex justify-center items-center h-full">
-        @if ($game['rating'] === 'N/A')
-        {{ $game['rating'] }}
+        @if ($game['critic_rating'] === 'N/A')
+        {{ $game['critic_rating'] }}
         @endif
         </div>
       </div>
