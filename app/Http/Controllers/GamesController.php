@@ -87,7 +87,7 @@ class GamesController extends Controller
   {
     return collect($data)->map(function ($game) {
       return collect($game)->merge([
-        'cover_image_url' => isset($game['cover']) ? str_replace('thumb', 'cover_big', $game['cover']['url']) : NULL,
+        'cover_image_url' => isset($game['cover']) ? str_replace('thumb', '720p', $game['cover']['url']) : NULL,
         'platforms' => isset($game['platforms']) ? collect($game['platforms'])->pluck('abbreviation')->implode(', ') : NULL,
         'genres' => isset($game['genres']) ? collect($game['genres'])->pluck('name')->implode(', ') : NULL,
         'involved_companies' => isset($game['involved_companies']) ? collect($game['involved_companies'])->pluck('company.name')->implode(', ') : NULL,
@@ -103,7 +103,7 @@ class GamesController extends Controller
         })->take(9) : NULL,
         'similar_games' => isset($game['similar_games']) ? collect($game['similar_games'])->map(function ($similarGame) {
           return [
-            'cover_image_url' => isset($similarGame['cover']) ? str_replace('thumb', 'cover_big', $similarGame['cover']['url']) : NULL,
+            'cover_image_url' => isset($similarGame['cover']) ? str_replace('thumb', '720p', $similarGame['cover']['url']) : NULL,
             'rating' => isset($similarGame['rating']) ? min(100, max(0, round($similarGame['rating']))) : 'N/A',
             'slug' => isset($similarGame['slug']) ? $similarGame['slug'] : NULL,
             'rating_count' => isset($similarGame['rating_count']) ? $similarGame['rating_count'] : NULL,
