@@ -62,10 +62,11 @@ class GamesController extends Controller
       'Client-ID' => config('services.twitch_api.client_id'),
       'Authorization' => 'Bearer ' . $accessToken,
     ])->withBody(
-      "fields name, cover.url, first_release_date, total_rating_count,
+      "fields *, name, cover.url, first_release_date, total_rating_count,
         platforms.abbreviation, rating, aggregated_rating, summary, slug, involved_companies.company.name,
         genres.name, websites.*, videos.*, screenshots.*, similar_games.cover.url,
-        similar_games.name, similar_games.slug, similar_games.rating, similar_games.rating_count, similar_games.platforms.abbreviation;
+        similar_games.name, similar_games.slug, similar_games.rating, similar_games.rating_count,
+        similar_games.aggregated_rating, similar_games.aggregated_rating_count, similar_games.platforms.abbreviation;
           where slug = \"{$slug}\";",
       'text/plain'
     )->post('https://api.igdb.com/v4/games')->json();
@@ -105,8 +106,10 @@ class GamesController extends Controller
           return [
             'cover_image_url' => isset($similarGame['cover']) ? str_replace('thumb', '720p', $similarGame['cover']['url']) : NULL,
             'rating' => isset($similarGame['rating']) ? min(100, max(0, round($similarGame['rating']))) : 'N/A',
+            'critic_rating' => isset($similarGame['aggregated_rating']) ? min(100, max(0, round($similarGame['aggregated_rating']))) : 'N/A',
             'slug' => isset($similarGame['slug']) ? $similarGame['slug'] : NULL,
             'rating_count' => isset($similarGame['rating_count']) ? $similarGame['rating_count'] : NULL,
+            'critic_rating_count' => isset($similarGame['aggregated_rating_count']) ? $similarGame['aggregated_rating_count'] : NULL,
             'name' => isset($similarGame['name']) ? $similarGame['name'] : NULL,
             'platforms' => isset($similarGame['platforms']) ? collect($similarGame['platforms'])->pluck('abbreviation')->implode(', ') : NULL,
           ];

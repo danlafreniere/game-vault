@@ -5,16 +5,16 @@
     </a>
     <div id="{{ $game['slug'] }}" class="absolute bottom-[-20px] right-[-20px] h-16 w-16 bg-gray-800 rounded-full text-xs">
       <div class="font-semibold text-xs flex justify-center items-center h-full">
-      @if ($game['rating'] != 'N/A')
+      @if ($game['critic_rating'] != 'N/A')
       @push('scripts')
       @include('_rating', [
       'selector' => $game['slug'],
-      'rating' => $game['rating'],
+      'rating' => $game['critic_rating'],
       'event' => null,
       ])
       @endpush
       @else
-      {{ $game['rating'] }}
+      {{ $game['critic_rating'] }}
       @endif
       </div>
     </div>

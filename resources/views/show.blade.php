@@ -197,7 +197,7 @@
     <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Similar Games</h2>
     <div class="similar-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12 pb-4">
       @foreach ($game['similar_games'] as $similar)
-      @if (isset($similar['rating_count']) && $similar['rating_count'] > 5)
+      @if (isset($similar['critic_rating']) && $similar['critic_rating'] !== 'N/A')
       <x-game-card :game="$similar" />
       @endif
       @endforeach
